@@ -15,7 +15,9 @@ basic.py 내부에 있는 Calculator 클래스의 add, subtract, multiply, divid
 
 engineering.py 내부에 있는 EngineeringCalculator 클래스의 square_root, power, log, ln, sin, cos, tan 매서드는 차례대로 제곱근, 거듭제곱, 로그, 자연로그, 사인, 코사인, 탄젠트를 수행하는 매서드입니다.
 
-자세한 내용과 설명은 basic.py, engineering.py, utils.py 을 참고해주세요.
+complex.py 내부에 있는 ComplexCalculator 의 complex_add, complex_subtract, complex_multiply, complex_divide, complex_magnitude, complex_argument, cartesian_to_polar 매서드들은 복소수의 덧셈, 뺄셈, 곱셈, 나눗셈, 절대값, 편각, 좌표계 전환을 수행합니다.
+
+자세한 내용과 설명은 basic.py, engineering.py, complex.py, utils.py 을 참고해주세요.
 
 해당 패키지의 구조는 아래와 같습니다
 
@@ -26,6 +28,8 @@ calculator/
 ├── __init__.py
 
 ├── basic.py
+
+├── complex.py
 
 ├── engineering.py
 
@@ -180,6 +184,30 @@ print(eng_calc.log(100, precision=4))  # 출력: 2.0000
 print(eng_calc.sin(30, angle_unit='degree', precision=4))  # 출력: 0.5000
 
 eng_calc.divide(5, 0) # 에러처리 확인용 코드
+
+print("\nComplex Calculator Demo:")
+
+comp_calc = ComplexCalculator()
+
+print(comp_calc.complex_add(1 + 1j, 2 + 2j, 3 + 3j))  # 출력: (6+6j)
+
+print(comp_calc.complex_subtract(10 + 10j, 2 + 5j, 3 - 5j))  # 출력: (5+10j)
+
+print(comp_calc.complex_multiply(2 + 1j, 3, 4j))  # 출력: (-12+24j)
+
+print(comp_calc.complex_divide(100 - 10j, 2))  # 출력: (50-5j)
+
+print(comp_calc.complex_magnitude(1 + 1j, precision = 4))  # 출력: 1.4142
+
+print(comp_calc.complex_argument(1 + 1j, angle_unit = 'degree'))  # 출력:45.0 
+
+print(comp_calc.complex_argument(1 + 1j, precision = 3))  # 출력:0.785 
+
+print(comp_calc.cartesian_to_polar(1+1j, coordinate ='cartesian', precision = 3))  # 출력: [1.414, 0.785]
+
+print(comp_calc.cartesian_to_polar(1,0, coordinate ='polar'))  # 출력:0.785 
+
+comp_calc.divide(5, 0) # 에러처리 확인용 코드
 
 =================================================
 

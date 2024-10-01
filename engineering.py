@@ -4,11 +4,7 @@ editor : Kim Gwang=Jae
 date : 2024-10-1
 
 이 파이썬 파일은 사칙연산을 하는 계산기 클래스 Calculator에 공학용 계산 기능을 추가한 EngineeringCalculator로 이루어져있다.
-get_kwarg, prec, fl 는 사칙연산 매서드들의 코드에서 공통적으로 계속 쓰인 코드들은 매서드로 만들어 코드의 길이를 줄이고 보기 쉽게 정리하기 위해 만들었다.
-divide 매서드는 0나누기 오류를 방지하는 코드가 들어가있다.
 precision은 소수점 자릿수를 결정하는 입력이고 return_float는 결과를 실수(True) 혹은 정수형(False)으로 변환하는데 쓰이는 입력이다.
-precision의 초기값은 0, return_float의 초기값은 False이다.
-
 EngineeringCalculator는 Calculator의 확장 버전으로 공학계산 기능(제곱근, 제곱, 로그, 삼각함수 계산)이 추가되어있다.
 EngineeringCalculator의 매서드들은 대부분 math 라이브러리의 기능을 이용해 만들었고, 소수점 결정 기능과 실수형 변환 기능이 들어가있다.
 """
@@ -96,20 +92,6 @@ class EngineeringCalculator(Calculator):
 
         return result
     
-    def convert_to_radians(self, x:float, **kwargs: dict[str, any])->any: 
-        '''
-        디그리로 설정된 각도(입력x)를 라디안으로 변환해 출력하는 매서드. 키워드 파라미터kwargs 를 이용한다.
-        angle_unit = 'degree' 키워드가 있으면 입력 x를 degree에서 라디안으로 변환한 값을 반환합니다.
-        angle_raidans(180, angle_unit = 'degree') = pi
-        '''
-        for key,value in kwargs.items():
-            if key == 'angle_unit' and value == 'degree':
-                x = math.radians(x)
-            else : 
-                pass
-                
-        return x
-
     def sin(self, x:float, **kwargs: dict[str, any])->any: 
         '''
         사인. 각도 혹은 라디안 x를 입력하고 키워드로 angle_unit = 'degree' 가 입력되면 라디안 값으로 변환하여 sin값을 계산해 결과값을 반환합니다.
