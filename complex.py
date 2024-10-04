@@ -21,248 +21,242 @@ from engineering import EngineeringCalculator
 
 class ComplexCalculator(EngineeringCalculator):
     """
-    복소수 연산을 도와주는 클래스입니다.
-    
+    복소수 연산을 수행하는 계산기 클래스입니다.
+
     복소수의 사칙연산, 절대값, 편각, 좌표계 전환 기능을 제공합니다.
     공학용 계산기 클래스 EngineeringCalculator 를 상속받아 사용합니다.
-    
-    complex_add, complex_subtract, complex_multiply, complex_divide 매서드는 차례대로 덧셈, 뺄셈, 곱셈, 나눗셈을 처리하는 함수이다.
-    
-    위 매서드들은 *args을 써서 여러 숫자들을 입력으로 받는다.
-    basic과 engineering과 달리 **kwargs을 써서 조건을 지정하지 않는다.
-    complex_divide는 0나누기 오류도 처리할 수 있다.
-    사칙연산들은 이러한 순서로 동작한다.
-    1. 다수의 복소수들을 입력받는다. 
-    2. 계산을 실시한다.
-    3. 복소수 결과를 반환한다.
-    
-    complex_magnitude, complex_argument, cartesian_to_polar 매서드는 차례대로 절대값, 편각, 좌표계 전환을 처리하는 함수이다.
-    complex_magnitude, complex_argument는 복소수 입력 x와 키워드 **kwargs을 입력받는다.
-    cartesian_to_polar는 입력 *args 와 키워드 **kwargs을 입력받는다.
-    
-        복소수의 덧셈합을 계산하는 매서드. 
-        
-        Args:
-            *args (complex): 복소수들
-        
-        Returns:
-            result (complex): 복소수들의 합
-        
-        Example:
-            complex_add(1 + 1j, 2 + 2j, 3 + 3j) = (1+1j+2+2j+3+3j) = (6+6j) # (6+6j) 을 반환함
-        
-        Caution:
-            복소수 외의 값을 입력받으면 오류가 날 수 있습니다.
-        
-        Raises:
-            현재는 예외처리가 없습니다.
-        
-        Exception:
-            현재는 예외처리가 없습니다.
-        
-        Extra:
-            이 매서드는 basic.py의 add 매서드를 기반으로 제작되었습니다.
-        다수의 복소수들을 입력받기 위해 *args를 사용함
-    """
 
+    Attributes:
+        None
+
+    Methods:
+        complex_add(*args: complex) -> complex:
+            복소수 덧셈 연산을 수행합니다.
+        complex_subtract(*args: complex) -> complex:
+            복소수 뺄셈 연산을 수행합니다.
+        complex_multiply(*args: complex) -> complex:
+            복소수 곱셈 연산을 수행합니다.
+        complex_divide(*args: complex) -> complex:
+            복소수 나눗셈 연산을 수행합니다.
+        complex_magnitude(x: complex, **kwargs: dict[str, any]) -> float:
+            복소수의 절대값을 계산합니다.
+        complex_argument(x: complex, **kwargs: dict[str, any]) -> float:
+            복소수의 편각을 계산합니다.
+        cartesian_to_polar(*args: any, **kwargs: dict[str, any]) -> any:
+            복소수의 좌표계를 직교 좌표계에서 극 좌표계로 또는 극 좌표계에서 직교 좌표계로 변환합니다.
+
+    Args:
+        *args (complex): 연산에 사용할 복소수들을 가변 인자로 받습니다.
+        x (complex): 복소수의 절대값 또는 편각을 계산할 때 사용할 복소수입니다.
+        **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+            - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+            - angle_unit (str): 'degree' 이면 출력이 극좌표형태일 때 라디안에서 각도로 변환해주는 문자열 (예 : angle_unit = 'degree')
+            - coordinate (str): 입력이 지평좌표계(cartesian), 극좌표계(polar)인지 표기해주는 문자열. 지평좌표계라면 극좌표계로, 극좌표계라면 지평좌표계로 변환하라는 시지를 내리는 문자열 (예 : coordinate = 'cartesian', coordinate = 'polar')
+
+    Returns:
+        complex: 복소수 연산 결과를 반환합니다.
+        float: 복소수의 절대값 또는 편각을 반환합니다.
+        list: 직교 좌표계에서 극 좌표계로 변환한 결과를 길이와 각도가 든 리스트로 반환합니다. ([길이, 각도])
+        complex: 극 좌표계에서 직교 좌표계로 변환한 결과를 복소수로 반환합니다. (x+yj)
+
+    Raises:
+        ZeroDivisionError: complex_divide() 메서드에서 0으로 나누는 경우 발생합니다.
+    """
+    
     def init(self, *args: complex):
         """현재는 아무런 초기화도 하지 않습니다."""
         pass
 
     def complex_add(self, *args: complex) -> complex:
-        '''
-        복소수의 덧셈합을 계산하는 매서드. 
+        """
+        복소수 덧셈 연산을 수행합니다.
         
-        *args 로 다수의 복소수들을 입력받아 복소수들의 합을 반환합니다.
-        
+        이 매서드는 basic.py의 add 매서드를 기반으로 제작되었습니다.
+        복소수 외의 값을 입력받으면 오류가 날 수 있습니다.
+
         Args:
-            *args (complex): 복소수들
-            
-        Keyward args:
-            현재는 없습니다.
-        
+            *args (complex): 덧셈 연산에 사용할 복소수들을 가변 인자로 받습니다.
+
         Returns:
-            result (complex): 입력한 복소수들의 합
-        
-        Example:
-            complex_add(1 + 1j, 2 + 2j, 3 + 3j) # (6+6j) 을 반환
-        
-        Caution:
-            복소수 외의 값을 입력받으면 오류가 날 수 있습니다.
-
-        Extra:
-            이 매서드는 basic.py의 add 매서드를 기반으로 제작되었습니다.
+            complex: 복소수 덧셈 연산 결과를 반환합니다.
             
-        '''
+        Examples:
+            >>> calc = ComplexCalculator()
+            >>> calc.complex_add(1 + 1j, 2 + 2j, 3 + 3j)  
+            (6+6j)
+        """
 
-        result = sum(args)
+        result = sum(args) # 덧셈 연산 수행
 
         return result
 
     def complex_subtract(self, *args: complex) -> complex:
-        '''
-        복소수의 뺄셈을 계산하는 매서드.
-        
-        처음 입력받은 복소수에서 나머지 입력받을 복소수를 뺍니다. 
-        처음 입력받은 복소수 - (나머지 입력받은 복소수들의 합) = 결과
-        args[0]은 처음 값, sum(args[1:])는 빼야할 값들의 합으로 퉁쳐서 뺌.
-        다수의 복소수들을 입력받기 위해 *args를 사용함
+        """
+        복소수 뺄셈 연산을 수행합니다.
 
+        가변 인자에 처음으로 들어가는 복소수에서 나머지 복소수들을 뺀 값을 반환합니다.
+        이 매서드는 basic.py의 subtract 매서드를 기반으로 제작되었습니다.
+        
+
+        
         Args:
-            *args (complex): 복소수들. 
-            
-        Keyward args:
-            현재는 없습니다.
-        
+            *args (complex): 뺄셈 연산에 사용할 복소수들을 가변 인자로 받습니다.
+
         Returns:
-            result (complex): 처음 입력받는 복소수에서 나머지 복소수 값을 뺀 값
+            complex: 복소수 뺄셈 연산 결과를 반환합니다.
         
-        Example:
-            complex_subtract(10 + 10j, 2 + 5j, 3 - 5j) # (5+10j) 을 반환
+        Examples:
+            >>> calc = ComplexCalculator()
+            >>> calc.complex_subtract(10 + 10j, 2 + 5j, 3 - 5j) 
+            (5+10j)
         
-        Caution:
-            복소수 외의 값을 입력받으면 오류가 날 수 있습니다.
+        """
 
-        Extra:
-            이 매서드는 basic.py의 subtract 매서드를 기반으로 제작되었습니다.
-            
-        '''
-
-        result = args[0] - sum(args[1:])
+        result = args[0] - sum(args[1:]) # 뺄셈 연산 수행
 
         return result
 
     def complex_multiply(self, *args: complex) -> complex:
-        '''
-        math.prod를 사용해서 복소수의 곱셈합을 계산함. 
-        complex_multiply(2 + 1j, 3, 4j) = (2+1j)*3*4j = (-12+24j)을 반환함
-        다수의 복소수들을 입력받기 위해 *args를 사용함
+        """
+        복소수 곱셈 연산을 수행합니다.
         
-        '''
+        복소수의 곱셈 연산을 수행하는 매서드입니다.
+        이 매서드는 basic.py의 multiply 매서드를 기반으로 제작되었습니다.
 
-        result = math.prod(args)
+        Args:
+            *args (complex): 곱셈 연산에 사용할 복소수들을 가변 인자로 받습니다.
+
+        Returns:
+            complex: 복소수 곱셈 연산 결과를 반환합니다.
+            
+        Examples:
+            >>> calc = ComplexCalculator()
+            >>> calc.complex_multiply(2 + 1j, 3, 4j)
+            (-12+24j)
+
+        """
+
+        result = math.prod(args) # 곱셈 연산 수행
 
         return result
 
     def complex_divide(self, *args: complex) -> complex:
+        """
+        복소수 나눗셈 연산을 수행합니다.
         
-        '''
-        복소수 나눗셈을 계산하는 매서드.
-        math.prod(args[1:]) 로 나눌 값들의 곱셈을 계산해서 합치고 처음값 args[0]에 나눠버림.
-        complex_divide(100 - 10j, 2) = (100-10j)/2 = (50-5j) 을 반환함.
-        다수의 복소수들을 입력받기 위해 *args를 사용함.
-        0나누기 오류를 발견하는 기능 탑재.
-        '''
+        복소수의 나눗셈 연산을 수행하는 매서드입니다.
+        이 매서드는 basic.py의 divide( 매서드를 기반으로 제작되었습니다.
+        가변 인자에 처음으로 들어가는 복소수에서 나머지 복소수들로 나눈 값을 반환합니다.
+        0으로 나누는 경우 오류를 출력합니다.
+
+        Args:
+            *args (complex): 나눗셈 연산에 사용할 복소수들을 가변 인자로 받습니다.
+
+        Returns:
+            complex: 복소수 나눗셈 연산 결과를 반환합니다.
+
+        Raises:
+            ZeroDivisionError: 0으로 나누는 경우 발생합니다.
+            
+        Examples:
+            >>> calc = ComplexCalculator()
+            >>> calc.complex_divide(100 - 10j, 2)
+            (50-5j)
+
+        """
 
         # 0나누기 오류 발생시 에러났다고 표시
         try:
-            result = args[0] / math.prod(args[1:])
+            result = args[0] / math.prod(args[1:]) # 나눗셈 연산 수행
             return result
         except ZeroDivisionError as e:
             print(" 에러났습니다 : ", e)  # 출력: "Division by zero is not allowed"
 
     def complex_magnitude(self, x:complex,**kwargs: dict[str, any]) -> float:
-        '''
-        복소수의 절대값을 계산하는 매서드.
-        복소수 x를 입력받아 복소수의 절대값을 실수형으로 반환한다.
-        입력받을 수 있는 키워드는 precision=int.
-        키워드로 precision를 입력받아 소수점 자릿수를 설정할수있다.
-        complex_magnitude(1 + 1j, precision = 4) = 1.4142
-        이러한 순서로 동작한다.
-        1. 복소수와 키워드들을 입력받는다. 
-        2. 계산을 실시한다.
-        3. prec을 통해 소수점 자릿수를 결정짓는다.
-        4. 변환된 결과를 출력한다.
-        '''
-        r, f = utils.get_kwarg(**kwargs)
+        """
+        복소수의 절대값을 계산합니다.
 
-        result = abs(x)
-        result = utils.round_result(value=result, precision=r)
+        Args:
+            x (complex): 절대값을 계산할 복소수입니다.
+            **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+                - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+
+        Returns:
+            float: 복소수의 절대값을 반환합니다.
+
+        Examples:
+            >>> calc = ComplexCalculator()
+            >>> calc.complex_magnitude(1 + 1j, precision = 4)
+            1.4142
+        """
+
+        r, f = utils.get_kwarg(**kwargs) # r=precision, f=return_float 키워드 인자를 받음. f는 사용안함 
+
+        result = abs(x) # 절대값 계산 수행
+        result = utils.round_result(value=result, precision=r) # 소수점 자릿수 맞춤
         
         return result
 
     def complex_argument(self, x:complex,**kwargs: dict[str, any]) -> float:
-        '''
-        복소수의 절대값을 계산하는 매서드.
-        복소수 x를 입력받아 복소수의 절대값을 실수형으로 반환한다.
-        입력받을 수 있는 키워드는 precision=int, angle_unit = 'degree'
-        키워드로 precision를 입력받아 소수점 자릿수를 설정할수있다.
-        키워드로 angle_unit를 degree로 입력받아 라디안을 각도로 변환할 수 있다.
-        complex_argument(1+1j, angle_unit = 'degree') = 45.0
-        complex_argument(1+1j, precision = 3) = 0.785
-        이러한 순서로 동작한다.
-        1.get_kwarg을 통해 초기조건들을 불러온다.
-        2. 계산을 실시한다.
-        3. prec을 통해 소수점 자릿수를 결정짓는다.
-        4. 키워드가 있다면 키워드에 따라 각도로 변환한다.
-        5. 변환된 결과를 출력한다.
-        '''
-        r, f = utils.get_kwarg(**kwargs)
+        """
+        복소수의 편각을 계산합니다.
 
-        result = cmath.phase(x)
-        result = utils.round_result(value=result, precision=r)
+        Args:
+            x (complex): 편각을 계산할 복소수입니다.
+            **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+                - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+                - angle_unit (str): 'degree' 이면 출력이 극좌표 형태일 때 라디안에서 각도로 변환해주는 문자열 (예 : angle_unit = 'degree')
+
+        Returns:
+            float: 복소수의 편각을 반환합니다. 키워드 인자에 따라 각도, 라디안 형태를 띕니다.
+
+        Examples:
+            >>> calc = ComplexCalculator()
+            >>> calc.complex_argument(1 + 1j, angle_unit = 'degree')
+            45.0
+            >>> calc.complex_argument(1 + 1j, precision = 3)
+            0.785
+        """
+
+        r, f = utils.get_kwarg(**kwargs) # r=precision, f=return_float 키워드 인자를 받음 
+
+        result = cmath.phase(x) # 편각 계산 수행
+        result = utils.round_result(value=result, precision=r) # 소수점 자릿수 맞춤
         if f == 'degree': 
             result = math.degrees(result)
         return result
 
     def cartesian_to_polar(self, *args:any, **kwargs: dict[str, any])->any:
-   
-        '''
-        복소수의 절대값을 계산하는 매서드.
-        
-        복소수 x를 입력받아 복소수의 절대값을 실수형으로 반환한다.
-        입력받을 수 있는 키워드는 precision=int, angle_unit = 'degree', coordinate = 'cartesian' or 'polar'
-        키워드로 precision를 입력받아 소수점 자릿수를 설정할수있다.
-        키워드로 angle_unit를 degree로 입력받아 라디안을 각도로 변환할 수 있다.
-        키워드로 coordinate로 입력받아 현재 입력x값이 직교 or 극좌표계인지 알려준다.
-        
-        cartesian를 입력받는다면 입력 x 는 직교 좌표계로, 출력을 극 좌표계 값을 반환한다.
-        polar를 입력받는다면 입력 x 는 극 좌표계로, 출력을 직교 좌표계 값을 반환한다.
-        coordinate값을 반드시 표기해야 버그가 나지 않는다. 극 좌표계 입력은 1, 0 처럼 두개여야 한다.
-        cartesian_to_polar(1+1j, coordinate ='cartesian', precision = 3) = [1.414, 0.785]
-        cartesian_to_polar(1,0, coordinate ='polar') = (1+0j)
-        이러한 순서로 동작한다.
-        1.get_kwarg을 통해 초기조건들을 불러온다.
-        2. coordinate값을 저장한다.
-        3. coordinate값에 따라 계산을 실시한다.
-        3-1. 지평 좌표계'cartesian' 라면  precision을 통해 소수점 자릿수를 결정짓는다.
-        3-2. 극 좌표계 'polar' 라면 키워드가 필요하지 않는다. 복소수 결과가 나오기 때문이다.
-        4. angle_unit 키워드가 있다면 키워드에 따라 각도로 변환한다.
-        5. 변환된 결과를 출력한다.
+        """
+        복소수의 좌표계를 직교 좌표계에서 극 좌표계로 또는 극 좌표계에서 직교 좌표계로 변환합니다.
+
+        coordinate 키워드 인자는 반드시 적어줘야 함수가 정상적으로 동작합니다.
+        가변 인자에 들어가는 값의 형식이 극좌표(r,pi)인지, 지평좌표(x+yj)인지 확인하셔야 합니다.
+        가변 인자에 복소수가 들어가면 지평좌표계입니다.
+        가변 인자에 두 개의 숫자가 들어가면 극좌표계입니다.
 
         Args:
-            *args (any): 복소수형태의 변수 1개(1+1j) 혹은 극좌표형태의 변수 2개(1,0) 
-
-        Keyward args:
-            precision (int): 출력의 소수점 자릿수를 결정하는 정수 (예 : precision=5)
-            angle_unit (str): 'degree' 이면 출력이 극좌표형태일 때 라디안에서 각도로 변환해주는 문자열 (예 : angle_unit = 'degree')
-            coordinate (str): 입력이 지평좌표계(cartesian), 극좌표계(polar)인지 표기해주는 문자열. \
-                                지평좌표계라면 극좌표계로, 극좌표계라면 지평좌표계로 변환하라는 시지를 내리는 문자열 \
-                                (예 : coordinate = 'cartesian', coordinate = 'polar')
+            *args (any): 좌표계 변환에 사용할 복소수 또는 극좌표 정보를 가변 인자로 받습니다.
+            **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+                - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+                - angle_unit (str): 'degree' 이면 출력이 극좌표형태일 때 라디안에서 각도로 변환해주는 문자열 (예 : angle_unit = 'degree')
+                - coordinate (str): 입력이 지평좌표계(cartesian), 극좌표계(polar)인지 표기해주는 문자열. 지평좌표계라면 극좌표계로, \
+                                    극좌표계라면 지평좌표계로 변환하라는 시지를 내리는 문자열 \
+                                    (예 : coordinate = 'cartesian', coordinate = 'polar')
 
         Returns:
-            result (any): 지평좌표계라면 길이와 각도가 든 리스트 [길이, 각도], 극좌표계라면 복소수 (x+yj)
+            list: 직교 좌표계에서 극 좌표계로 변환한 결과를 길이와 각도가 포함된 리스트로 반환합니다. ([길이, 각도])
+            complex: 극 좌표계에서 직교 좌표계로 변환한 결과를 복소수로 반환합니다. (x+yj)
 
         Example:
-            cartesian_to_polar(1+1j, coordinate ='cartesian', precision = 3) = [1.414, 0.785]
-            cartesian_to_polar(1,0, coordinate ='polar') = (1+0j)
+            calc = ComplexCalculator()
+            >>> calc.cartesian_to_polar(1+1j, coordinate ='cartesian', precision = 3)
+            [1.414, 0.785]
+            >>> calc.cartesian_to_polar(1,0, coordinate ='polar')
+            (1+0j)
+        """
 
-        Caution:
-            복소수 외의 값을 입력받으면 오류가 날 수 있습니다.
-
-        Raises:
-            현재는 예외처리가 없습니다.
-
-        Exception:
-            현재는 예외처리가 없습니다.
-
-        Extra:
-            이 매서드는 basic.py의 add 매서드를 기반으로 제작되었습니다.
-
-        '''
-        
-        
-        r, f = utils.get_kwarg(**kwargs)
+        r, f = utils.get_kwarg(**kwargs) # r=precision, f=return_float 키워드 인자를 받음 
         c = []
         for key, value in kwargs.items(): # 좌표계 키워드 추출
             if key == 'coordinate':
@@ -304,37 +298,3 @@ if __name__ == '__main__':
     print(calc.cartesian_to_polar(1,0, coordinate ='polar'))  # 출력:0.785 
 
     calc.divide(5, 0) # 에러처리 확인용 코드
-
-
-"""
-문서화 예시
-
-복소수의 덧셈합을 계산하는 매서드. 
-
-~~~자세한설명~~~
-
-Args:
-    *args (complex): 복소수들
-
-Keyward args:
-    현재는 없습니다.
-
-Returns:
-    result (complex): 복소수들의 합
-
-Example:
-    complex_add(1 + 1j, 2 + 2j, 3 + 3j) = (1+1j+2+2j+3+3j) = (6+6j) # (6+6j) 을 반환함
-
-Caution:
-    복소수 외의 값을 입력받으면 오류가 날 수 있습니다.
-
-Raises:
-    현재는 예외처리가 없습니다.
-
-Exception:
-    현재는 예외처리가 없습니다.
-
-Extra:
-    이 매서드는 basic.py의 add 매서드를 기반으로 제작되었습니다.
-
-"""

@@ -162,3 +162,74 @@ calculator/
     이 기능을 패키지에 통합하고 적절한 문서화와 테스트를 추가하세요.
 
 '''
+
+"""
+    복소수 연산을 수행하는 계산기 클래스입니다.
+
+    복소수의 사칙연산, 절대값, 편각, 좌표계 전환 기능을 제공합니다.
+    공학용 계산기 클래스 EngineeringCalculator 를 상속받아 사용합니다.
+
+    Attributes:
+        None
+
+    Methods:
+        complex_add(*args: complex) -> complex:
+            복소수 덧셈 연산을 수행합니다.
+        complex_subtract(*args: complex) -> complex:
+            복소수 뺄셈 연산을 수행합니다.
+        complex_multiply(*args: complex) -> complex:
+            복소수 곱셈 연산을 수행합니다.
+        complex_divide(*args: complex) -> complex:
+            복소수 나눗셈 연산을 수행합니다.
+        complex_magnitude(x: complex, **kwargs: dict[str, any]) -> float:
+            복소수의 절대값을 계산합니다.
+        complex_argument(x: complex, **kwargs: dict[str, any]) -> float:
+            복소수의 편각을 계산합니다.
+        cartesian_to_polar(*args: any, **kwargs: dict[str, any]) -> any:
+            복소수의 좌표계를 직교 좌표계에서 극 좌표계로 또는 극 좌표계에서 직교 좌표계로 변환합니다.
+
+    Args:
+        *args (complex): 연산에 사용할 복소수들을 가변 인자로 받습니다.
+        x (complex): 복소수의 절대값 또는 편각을 계산할 때 사용할 복소수입니다.
+        **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+            - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+            - angle_unit (str): 'degree' 이면 출력이 극좌표형태일 때 라디안에서 각도로 변환해주는 문자열 (예 : angle_unit = 'degree')
+            - coordinate (str): 입력이 지평좌표계(cartesian), 극좌표계(polar)인지 표기해주는 문자열. 지평좌표계라면 극좌표계로, 극좌표계라면 지평좌표계로 변환하라는 시지를 내리는 문자열 (예 : coordinate = 'cartesian', coordinate = 'polar')
+
+    Returns:
+        complex: 복소수 연산 결과를 반환합니다.
+        float: 복소수의 절대값 또는 편각을 반환합니다.
+        list: 직교 좌표계에서 극 좌표계로 변환한 결과를 길이와 각도가 든 리스트로 반환합니다. ([길이, 각도])
+        complex: 극 좌표계에서 직교 좌표계로 변환한 결과를 복소수로 반환합니다. (x+yj)
+
+    Raises:
+        ZeroDivisionError: complex_divide() 메서드에서 0으로 나누는 경우 발생합니다.
+"""
+
+
+'''
+        복소수의 덧셈합을 계산하는 매서드. 
+        
+        Args:
+            *args (complex): 복소수들
+        
+        Returns:
+            result (complex): 복소수들의 합
+        
+        Example:
+            complex_add(1 + 1j, 2 + 2j, 3 + 3j) = (1+1j+2+2j+3+3j) = (6+6j) # (6+6j) 을 반환함
+        
+        Caution:
+            복소수 외의 값을 입력받으면 오류가 날 수 있습니다.
+        
+        Raises:
+            현재는 예외처리가 없습니다.
+        
+        Exception:
+            현재는 예외처리가 없습니다.
+        
+        Extra:
+            이 매서드는 basic.py의 add 매서드를 기반으로 제작되었습니다.
+        다수의 복소수들을 입력받기 위해 *args를 사용함
+
+'''
