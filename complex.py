@@ -14,7 +14,7 @@ complex_magnitude, complex_argument, cartesian_to_polar 는 구현상의 이유�
 
 """
 import math  # 곱셈, 나눗셈 함수 작성용
-import cmath # 복소수 편각, 극좌표 변환 매서드 작성용
+import cmath  # 복소수 편각, 극좌표 변환 매서드 작성용
 import utils
 from engineering import EngineeringCalculator
 
@@ -62,7 +62,7 @@ class ComplexCalculator(EngineeringCalculator):
     Raises:
         ZeroDivisionError: complex_divide() 메서드에서 0으로 나누는 경우 발생합니다.
     """
-    
+
     def init(self, *args: complex):
         """현재는 아무런 초기화도 하지 않습니다."""
         pass
@@ -70,7 +70,7 @@ class ComplexCalculator(EngineeringCalculator):
     def complex_add(self, *args: complex) -> complex:
         """
         복소수 덧셈 연산을 수행합니다.
-        
+
         이 매서드는 basic.py의 add 매서드를 기반으로 제작되었습니다.
         복소수 외의 값을 입력받으면 오류가 날 수 있습니다.
 
@@ -79,14 +79,14 @@ class ComplexCalculator(EngineeringCalculator):
 
         Returns:
             complex: 복소수 덧셈 연산 결과를 반환합니다.
-            
+
         Examples:
             >>> calc = ComplexCalculator()
             >>> calc.complex_add(1 + 1j, 2 + 2j, 3 + 3j)  
             (6+6j)
         """
 
-        result = sum(args) # 덧셈 연산 수행
+        result = sum(args)  # 덧셈 연산 수행
 
         return result
 
@@ -96,30 +96,30 @@ class ComplexCalculator(EngineeringCalculator):
 
         가변 인자에 처음으로 들어가는 복소수에서 나머지 복소수들을 뺀 값을 반환합니다.
         이 매서드는 basic.py의 subtract 매서드를 기반으로 제작되었습니다.
-        
 
-        
+
+
         Args:
             *args (complex): 뺄셈 연산에 사용할 복소수들을 가변 인자로 받습니다.
 
         Returns:
             complex: 복소수 뺄셈 연산 결과를 반환합니다.
-        
+
         Examples:
             >>> calc = ComplexCalculator()
             >>> calc.complex_subtract(10 + 10j, 2 + 5j, 3 - 5j) 
             (5+10j)
-        
+
         """
 
-        result = args[0] - sum(args[1:]) # 뺄셈 연산 수행
+        result = args[0] - sum(args[1:])  # 뺄셈 연산 수행
 
         return result
 
     def complex_multiply(self, *args: complex) -> complex:
         """
         복소수 곱셈 연산을 수행합니다.
-        
+
         복소수의 곱셈 연산을 수행하는 매서드입니다.
         이 매서드는 basic.py의 multiply 매서드를 기반으로 제작되었습니다.
 
@@ -128,7 +128,7 @@ class ComplexCalculator(EngineeringCalculator):
 
         Returns:
             complex: 복소수 곱셈 연산 결과를 반환합니다.
-            
+
         Examples:
             >>> calc = ComplexCalculator()
             >>> calc.complex_multiply(2 + 1j, 3, 4j)
@@ -136,14 +136,14 @@ class ComplexCalculator(EngineeringCalculator):
 
         """
 
-        result = math.prod(args) # 곱셈 연산 수행
+        result = math.prod(args)  # 곱셈 연산 수행
 
         return result
 
     def complex_divide(self, *args: complex) -> complex:
         """
         복소수 나눗셈 연산을 수행합니다.
-        
+
         복소수의 나눗셈 연산을 수행하는 매서드입니다.
         이 매서드는 basic.py의 divide( 매서드를 기반으로 제작되었습니다.
         가변 인자에 처음으로 들어가는 복소수에서 나머지 복소수들로 나눈 값을 반환합니다.
@@ -157,7 +157,7 @@ class ComplexCalculator(EngineeringCalculator):
 
         Raises:
             ZeroDivisionError: 0으로 나누는 경우 발생합니다.
-            
+
         Examples:
             >>> calc = ComplexCalculator()
             >>> calc.complex_divide(100 - 10j, 2)
@@ -167,12 +167,12 @@ class ComplexCalculator(EngineeringCalculator):
 
         # 0나누기 오류 발생시 에러났다고 표시
         try:
-            result = args[0] / math.prod(args[1:]) # 나눗셈 연산 수행
+            result = args[0] / math.prod(args[1:])  # 나눗셈 연산 수행
             return result
         except ZeroDivisionError as e:
             print(" 에러났습니다 : ", e)  # 출력: "Division by zero is not allowed"
 
-    def complex_magnitude(self, x:complex,**kwargs: dict[str, any]) -> float:
+    def complex_magnitude(self, x: complex, **kwargs: dict[str, any]) -> float:
         """
         복소수의 절대값을 계산합니다.
 
@@ -190,14 +190,15 @@ class ComplexCalculator(EngineeringCalculator):
             1.4142
         """
 
-        r, f = utils.get_kwarg(**kwargs) # r=precision, f=return_float 키워드 인자를 받음. f는 사용안함 
+        # r=precision, f=return_float 키워드 인자를 받음. f는 사용안함
+        r, f = utils.get_kwarg(**kwargs)
 
-        result = abs(x) # 절대값 계산 수행
-        result = utils.round_result(value=result, precision=r) # 소수점 자릿수 맞춤
-        
+        result = abs(x)  # 절대값 계산 수행
+        result = utils.round_result(value=result, precision=r)  # 소수점 자릿수 맞춤
+
         return result
 
-    def complex_argument(self, x:complex,**kwargs: dict[str, any]) -> float:
+    def complex_argument(self, x: complex, **kwargs: dict[str, any]) -> float:
         """
         복소수의 편각을 계산합니다.
 
@@ -218,15 +219,16 @@ class ComplexCalculator(EngineeringCalculator):
             0.785
         """
 
-        r, f = utils.get_kwarg(**kwargs) # r=precision, f=return_float 키워드 인자를 받음 
+        # r=precision, f=return_float 키워드 인자를 받음
+        r, f = utils.get_kwarg(**kwargs)
 
-        result = cmath.phase(x) # 편각 계산 수행
-        result = utils.round_result(value=result, precision=r) # 소수점 자릿수 맞춤
-        if f == 'degree': 
+        result = cmath.phase(x)  # 편각 계산 수행
+        result = utils.round_result(value=result, precision=r)  # 소수점 자릿수 맞춤
+        if f == 'degree':
             result = math.degrees(result)
         return result
 
-    def cartesian_to_polar(self, *args:any, **kwargs: dict[str, any])->any:
+    def cartesian_to_polar(self, *args: any, **kwargs: dict[str, any]) -> any:
         """
         복소수의 좌표계를 직교 좌표계에서 극 좌표계로 또는 극 좌표계에서 직교 좌표계로 변환합니다.
 
@@ -256,28 +258,31 @@ class ComplexCalculator(EngineeringCalculator):
             (1+0j)
         """
 
-        r, f = utils.get_kwarg(**kwargs) # r=precision, f=return_float 키워드 인자를 받음 
+        # r=precision, f=return_float 키워드 인자를 받음
+        r, f = utils.get_kwarg(**kwargs)
         c = []
-        for key, value in kwargs.items(): # 좌표계 키워드 추출
+        for key, value in kwargs.items():  # 좌표계 키워드 추출
             if key == 'coordinate':
                 c = value
 
-        
         result = 0
-        new_result = [0,0]
-        if c == 'cartesian': #
-            result = cmath.polar(args[0]) # 튜플로 반환
+        new_result = [0, 0]
+        if c == 'cartesian':
+            result = cmath.polar(args[0])  # 튜플로 반환
             # print('result = ', result)
-            new_result[0] , new_result[1] = utils.round_result(value=result[0], precision=r) ,\
-                                    utils.round_result(value=result[1], precision=r) # 소수점 맞추기 및 리스트로 전환
-            
-            if f == 'degree': 
+            new_result[0], new_result[1] = utils.round_result(
+                value=result[0],
+                precision=r), utils.round_result(
+                value=result[1],
+                precision=r)  # 소수점 맞추기 및 리스트로 전환
+            if f == 'degree':
                 new_result[1] = math.degrees(new_result[1])
+
         elif c == 'polar':
             result = cmath.rect(args[0], args[1])
             # print('result = ', result)
             new_result = result
-            
+
         return new_result
 
 
@@ -291,10 +296,11 @@ if __name__ == '__main__':
     print(calc.complex_subtract(10 + 10j, 2 + 5j, 3 - 5j))  # 출력: (5+10j)
     print(calc.complex_multiply(2 + 1j, 3, 4j))  # 출력: (-12+24j)
     print(calc.complex_divide(100 - 10j, 2))  # 출력: (50-5j)
-    print(calc.complex_magnitude(1 + 1j, precision = 4))  # 출력: 1.4142
-    print(calc.complex_argument(1 + 1j, angle_unit = 'degree'))  # 출력:45.0 
-    print(calc.complex_argument(1 + 1j, precision = 3))  # 출력:0.785 
-    print(calc.cartesian_to_polar(1+1j, coordinate ='cartesian', precision = 3))  # 출력: [1.414, 0.785]
-    print(calc.cartesian_to_polar(1,0, coordinate ='polar'))  # 출력:0.785 
+    print(calc.complex_magnitude(1 + 1j, precision=4))  # 출력: 1.4142
+    print(calc.complex_argument(1 + 1j, angle_unit='degree'))  # 출력:45.0
+    print(calc.complex_argument(1 + 1j, precision=3))  # 출력:0.785
+    # 출력: [1.414, 0.785]
+    print(calc.cartesian_to_polar(1+1j, coordinate='cartesian', precision=3))
+    print(calc.cartesian_to_polar(1, 0, coordinate='polar'))  # 출력:0.785
 
-    calc.divide(5, 0) # 에러처리 확인용 코드
+    calc.divide(5, 0)  # 에러처리 확인용 코드

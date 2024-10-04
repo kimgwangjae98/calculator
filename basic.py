@@ -15,10 +15,11 @@ precision의 초기값은 0, return_float의 초기값은 False이다.
 import math  # 곱셈, 나눗셈 함수 작성용
 import utils
 
+
 class Calculator:
     """
     사칙연산을 수행하는 계산기 클래스입니다.
-    
+
     사칙연산을 수행하는 계산기에 소수점 자릿수 설정 기능과 실수형 반환 여부 기능을 추가한 계산기입니다.
     반환값이 any로 str, int, float로 다양하니 print문으로 출력할 때만 사용하길 권장합니다.
 
@@ -46,23 +47,24 @@ class Calculator:
 
     Raises:
         ZeroDivisionError: divide() 메서드에서 0으로 나누는 경우 발생합니다.
-        
+
     Process:
         1. 연산 조건을 지정하는 키워드를 저장합니다.
         2. 연산을 수행합니다.
         3. 소수점 자릿수를 맞춥니다.
         4. 결과를 실수형으로 반환할지 지정합니다.
         5. 변환된 결과를 반환합니다.
-        
+
     """
-    def init(self, *args:int, **kwargs: dict[str : any]):
+
+    def init(self, *args: int, **kwargs: dict[str: any]):
         pass
 
-    def add(self, *args:int, **kwargs: dict[str, any])->any:
+    def add(self, *args: int, **kwargs: dict[str, any]) -> any:
         """
         덧셈 연산을 수행합니다.
-        
-        
+
+
 
         Args:
             *args (int): 덧셈에 사용할 숫자들을 가변 인자로 받습니다.
@@ -83,20 +85,23 @@ class Calculator:
             6.0
         """
 
-        r, f = utils.get_kwarg(**kwargs) # r=precision, f=return_float 키워드 인자를 받음  # r=precision, f=return_float 키워드 인자를 받음 
+        # r=precision, f=return_float 키워드 인자를 받음  # r=precision, f=return_float 키워드 인자를 받음
+        r, f = utils.get_kwarg(**kwargs)
 
-        result = sum(args) # 덧셈 연산 수행
-        result = utils.round_result(value=result, precision=r) # 소수점 자릿수 맞춤 # 소수점 자릿수 맞춤
-        result = utils.fl(result=result, f=f) # 결과를 실수형으로 반환할지 지정 # 결과를 실수형으로 반환할지 지정
+        result = sum(args)  # 덧셈 연산 수행
+        # 소수점 자릿수 맞춤 # 소수점 자릿수 맞춤
+        result = utils.round_result(value=result, precision=r)
+        # 결과를 실수형으로 반환할지 지정 # 결과를 실수형으로 반환할지 지정
+        result = utils.fl(result=result, f=f)
 
         return result
 
-    def subtract(self, *args:int, **kwargs: dict[str, any])->any:
+    def subtract(self, *args: int, **kwargs: dict[str, any]) -> any:
         """
         뺄셈 연산을 수행합니다.
-        
+
         가변 인자에 처음으로 들어가는 숫자에서 나머지 숫자들을 뺀 값을 반환합니다.
-        
+
         Args:
             *args (int): 뺄셈에 사용할 숫자들을 가변 인자로 받습니다.
             **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
@@ -116,15 +121,16 @@ class Calculator:
             5.0
         """
 
-        r, f = utils.get_kwarg(**kwargs) # r=precision, f=return_float 키워드 인자를 받음
+        # r=precision, f=return_float 키워드 인자를 받음
+        r, f = utils.get_kwarg(**kwargs)
 
-        result = args[0] - sum(args[1:]) # 뺄셈 연산 수행
-        result = utils.round_result(value=result, precision=r) # 소수점 자릿수 맞춤
-        result = utils.fl(result=result, f=f) # 결과를 실수형으로 반환할지 지정
+        result = args[0] - sum(args[1:])  # 뺄셈 연산 수행
+        result = utils.round_result(value=result, precision=r)  # 소수점 자릿수 맞춤
+        result = utils.fl(result=result, f=f)  # 결과를 실수형으로 반환할지 지정
 
         return result
 
-    def multiply(self, *args:int, **kwargs: dict[str, any])->any:
+    def multiply(self, *args: int, **kwargs: dict[str, any]) -> any:
         """
         곱셈 연산을 수행합니다.
 
@@ -147,18 +153,19 @@ class Calculator:
             24.0
         """
 
-        r, f = utils.get_kwarg(**kwargs) # r=precision, f=return_float 키워드 인자를 받음 
+        # r=precision, f=return_float 키워드 인자를 받음
+        r, f = utils.get_kwarg(**kwargs)
 
-        result = math.prod(args) # 곱셈 연산 수행
-        result = utils.round_result(value=result, precision=r) # 소수점 자릿수 맞춤
-        result = utils.fl(result=result, f=f) # 결과를 실수형으로 반환할지 지정
+        result = math.prod(args)  # 곱셈 연산 수행
+        result = utils.round_result(value=result, precision=r)  # 소수점 자릿수 맞춤
+        result = utils.fl(result=result, f=f)  # 결과를 실수형으로 반환할지 지정
 
         return result
 
-    def divide(self, *args:int, **kwargs: dict[str, any])->any:
+    def divide(self, *args: int, **kwargs: dict[str, any]) -> any:
         """
         나눗셈 연산을 수행합니다.
-        
+
         가변 인자에 처음으로 들어가는 숫자에서 나머지 숫자들로 나눈 값을 반환합니다.
         0으로 나누는 경우 오류를 출력합니다.
 
@@ -184,19 +191,21 @@ class Calculator:
             50.0
         """
 
-        r, f = utils.get_kwarg(**kwargs) # r=precision, f=return_float 키워드 인자를 받음 
+        # r=precision, f=return_float 키워드 인자를 받음
+        r, f = utils.get_kwarg(**kwargs)
 
         # 0나누기 오류 발생시 에러났다고 표시
         try:
-            result = args[0] / math.prod(args[1:]) # 나눗셈 연산 수행
-            result = utils.round_result(value=result, precision=r) # 소수점 자릿수 맞춤
-            result = utils.fl(result=result, f=f) # 결과를 실수형으로 반환할지 지정
+            result = args[0] / math.prod(args[1:])  # 나눗셈 연산 수행
+            result = utils.round_result(
+                value=result, precision=r)  # 소수점 자릿수 맞춤
+            result = utils.fl(result=result, f=f)  # 결과를 실수형으로 반환할지 지정
             return result
         except ZeroDivisionError as e:
-            print(" 에러났습니다 : ",e)  # 출력: "Division by zero is not allowed"
+            print(" 에러났습니다 : ", e)  # 출력: "Division by zero is not allowed"
 
 
-__all__ = ['Calculator'] # 외부에서 import * 를 사용할 때 노출될 이름들을 명시
+__all__ = ['Calculator']  # 외부에서 import * 를 사용할 때 노출될 이름들을 명시
 
 if __name__ == '__main__':
     # 클래스 테스트용 코드
