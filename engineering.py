@@ -33,6 +33,36 @@ class EngineeringCalculator(Calculator):
     3. prec을 통해 소수점 자릿수를 결정짓는다.
     4. fl을 통해 출력의 실수형, 정수형을 결정짓는다.
     5. 변환된 결과를 출력한다.
+
+    Attributes:
+        None
+
+    Methods:
+        square_root(self, x: float, **kwargs: dict[str, any]) -> any:
+            제곱근 연산을 수행합니다.
+        power(self, x: float, y: float, **kwargs: dict[str, any]) -> any:
+            거듭제곱 연산을 수행합니다.
+        log(self, x: float, **kwargs: dict[str, any]) -> any:
+            밑이 10인 로그 연산을 수행합니다.
+        ln(self, x: float, **kwargs: dict[str, any]) -> any:
+            자연로그 연산을 수행합니다.
+        sin(self, x: float, **kwargs: dict[str, any]) -> any:
+            사인 연산을 수행합니다.
+        cos(self, x: float, **kwargs: dict[str, any]) -> any:
+            코사인 연산을 수행합니다.
+        tan(self, x: float, **kwargs: dict[str, any]) -> any:
+            탄젠트 연산을 수행합니다.
+
+    Args:
+        *args (complex): 연산에 사용할 복소수들을 가변 인자로 받습니다.
+        x (complex): 복소수의 절대값 또는 편각을 계산할 때 사용할 복소수입니다.
+        **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+            - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+            - angle_unit (str): 'degree' 이면 출력이 극좌표형태일 때 라디안에서 각도로 변환합니다. (예 : angle_unit = 'degree')
+
+    Returns:
+        any: 연산 결과를 반환합니다.
+
     """
 
     def init(self, **kwargs):
