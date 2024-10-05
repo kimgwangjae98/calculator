@@ -85,14 +85,14 @@ class Calculator:
             6.0
         """
 
-        # r=precision, f=return_float 키워드 인자를 받음  # r=precision, f=return_float 키워드 인자를 받음
-        r, f = utils.get_kwarg(**kwargs)
+        # precision, return_float 키워드 인자를 받음  # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
 
         result = sum(args)  # 덧셈 연산 수행
         # 소수점 자릿수 맞춤 # 소수점 자릿수 맞춤
-        result = utils.round_result(value=result, precision=r)
+        result = utils.round_result(value=result, precision=precision)
         # 결과를 실수형으로 반환할지 지정 # 결과를 실수형으로 반환할지 지정
-        result = utils.fl(result=result, f=f)
+        result = utils.fl(result=result, return_float=return_float)
 
         return result
 
@@ -121,12 +121,14 @@ class Calculator:
             5.0
         """
 
-        # r=precision, f=return_float 키워드 인자를 받음
-        r, f = utils.get_kwarg(**kwargs)
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
 
         result = args[0] - sum(args[1:])  # 뺄셈 연산 수행
-        result = utils.round_result(value=result, precision=r)  # 소수점 자릿수 맞춤
-        result = utils.fl(result=result, f=f)  # 결과를 실수형으로 반환할지 지정
+        result = utils.round_result(
+            value=result, precision=precision)  # 소수점 자릿수 맞춤
+        # 결과를 실수형으로 반환할지 지정
+        result = utils.fl(result=result, return_float=return_float)
 
         return result
 
@@ -153,12 +155,14 @@ class Calculator:
             24.0
         """
 
-        # r=precision, f=return_float 키워드 인자를 받음
-        r, f = utils.get_kwarg(**kwargs)
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
 
         result = math.prod(args)  # 곱셈 연산 수행
-        result = utils.round_result(value=result, precision=r)  # 소수점 자릿수 맞춤
-        result = utils.fl(result=result, f=f)  # 결과를 실수형으로 반환할지 지정
+        result = utils.round_result(
+            value=result, precision=precision)  # 소수점 자릿수 맞춤
+        # 결과를 실수형으로 반환할지 지정
+        result = utils.fl(result=result, return_float=return_float)
 
         return result
 
@@ -191,15 +195,16 @@ class Calculator:
             50.0
         """
 
-        # r=precision, f=return_float 키워드 인자를 받음
-        r, f = utils.get_kwarg(**kwargs)
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
 
         # 0나누기 오류 발생시 에러났다고 표시
         try:
             result = args[0] / math.prod(args[1:])  # 나눗셈 연산 수행
             result = utils.round_result(
-                value=result, precision=r)  # 소수점 자릿수 맞춤
-            result = utils.fl(result=result, f=f)  # 결과를 실수형으로 반환할지 지정
+                value=result, precision=precision)  # 소수점 자릿수 맞춤
+            # 결과를 실수형으로 반환할지 지정
+            result = utils.fl(result=result, return_float=return_float)
             return result
         except ZeroDivisionError as e:
             print(" 에러났습니다 : ", e)  # 출력: "Division by zero is not allowed"

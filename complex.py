@@ -82,7 +82,7 @@ class ComplexCalculator(EngineeringCalculator):
 
         Examples:
             >>> calc = ComplexCalculator()
-            >>> calc.complex_add(1 + 1j, 2 + 2j, 3 + 3j)  
+            >>> calc.complex_add(1+1j, 2+2j, 3+3j)  
             (6+6j)
         """
 
@@ -107,7 +107,7 @@ class ComplexCalculator(EngineeringCalculator):
 
         Examples:
             >>> calc = ComplexCalculator()
-            >>> calc.complex_subtract(10 + 10j, 2 + 5j, 3 - 5j) 
+            >>> calc.complex_subtract(10+10j, 2+5j, 3-5j) 
             (5+10j)
 
         """
@@ -131,7 +131,7 @@ class ComplexCalculator(EngineeringCalculator):
 
         Examples:
             >>> calc = ComplexCalculator()
-            >>> calc.complex_multiply(2 + 1j, 3, 4j)
+            >>> calc.complex_multiply(2+1j, 3, 4j)
             (-12+24j)
 
         """
@@ -190,11 +190,12 @@ class ComplexCalculator(EngineeringCalculator):
             1.4142
         """
 
-        # r=precision, f=return_float 키워드 인자를 받음. f는 사용안함
-        r, f = utils.get_kwarg(**kwargs)
+        # precision, return_float 키워드 인자를 받음. return_float는 사용안함
+        precision, return_float = utils.get_kwarg(**kwargs)
 
         result = abs(x)  # 절대값 계산 수행
-        result = utils.round_result(value=result, precision=r)  # 소수점 자릿수 맞춤
+        result = utils.round_result(
+            value=result, precision=precision)  # 소수점 자릿수 맞춤
 
         return result
 
@@ -213,18 +214,23 @@ class ComplexCalculator(EngineeringCalculator):
 
         Examples:
             >>> calc = ComplexCalculator()
-            >>> calc.complex_argument(1 + 1j, angle_unit = 'degree')
+            >>> calc.complex_argument(1+1j, angle_unit = 'degree')
             45.0
-            >>> calc.complex_argument(1 + 1j, precision = 3)
+            >>> calc.complex_argument(1+1j, precision = 3)
             0.785
         """
 
-        # r=precision, f=return_float 키워드 인자를 받음
-        r, f = utils.get_kwarg(**kwargs)
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
+        angle_unit = []  # 각도 저장할 변수 생성
+        for key, value in kwargs.items():  # angle_unit 키워드 인자 추출
+            if key == 'angle_unit':
+                angle_unit = value
 
         result = cmath.phase(x)  # 편각 계산 수행
-        result = utils.round_result(value=result, precision=r)  # 소수점 자릿수 맞춤
-        if f == 'degree':
+        result = utils.round_result(
+            value=result, precision=precision)  # 소수점 자릿수 맞춤
+        if angle_unit == 'degree':
             result = math.degrees(result)
         return result
 
@@ -241,7 +247,7 @@ class ComplexCalculator(EngineeringCalculator):
             *args (any): 좌표계 변환에 사용할 복소수 또는 극좌표 정보를 가변 인자로 받습니다.
             **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
                 - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
-                - angle_unit (str): 'degree' 이면 출력이 극좌표형태일 때 라디안에서 각도로 변환해주는 문자열 (예 : angle_unit = 'degree')
+                - angle_unit (str): 'degree' 이면 출력이 극좌표형태일 때 라디안에서 각도로 변환합니다. (예 : angle_unit = 'degree')
                 - coordinate (str): 입력이 지평좌표계(cartesian), 극좌표계(polar)인지 표기해주는 문자열. 지평좌표계라면 극좌표계로, \
                                     극좌표계라면 지평좌표계로 변환하라는 시지를 내리는 문자열 \
                                     (예 : coordinate = 'cartesian', coordinate = 'polar')
@@ -258,47 +264,47 @@ class ComplexCalculator(EngineeringCalculator):
             (1+0j)
         """
 
-        # r=precision, f=return_float 키워드 인자를 받음
-        r, f = utils.get_kwarg(**kwargs)
-        c = []
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
+        coordinate = []
         for key, value in kwargs.items():  # 좌표계 키워드 추출
             if key == 'coordinate':
-                c = value
+                coordinate = value
 
         result = 0
         new_result = [0, 0]
-        if c == 'cartesian':
+        if coordinate == 'cartesian':
             result = cmath.polar(args[0])  # 튜플로 반환
-            # print('result = ', result)
             new_result[0], new_result[1] = utils.round_result(
                 value=result[0],
-                precision=r), utils.round_result(
+                precision=precision), utils.round_result(
                 value=result[1],
-                precision=r)  # 소수점 맞추기 및 리스트로 전환
-            if f == 'degree':
+                precision=precision)
+            # 소수점 맞추기 및 리스트로 전환
+
+            if return_float == 'degree':
                 new_result[1] = math.degrees(new_result[1])
 
-        elif c == 'polar':
+        elif coordinate == 'polar':
             result = cmath.rect(args[0], args[1])
-            # print('result = ', result)
             new_result = result
 
         return new_result
 
 
-__all__ = ['ComplexCalculator']
+__all__ = ['ComplexCalculator']  # 외부에서 import * 를 사용할 때 노출될 이름들을 명시
 
 if __name__ == '__main__':
     # 클래스 테스트용 코드
     print("Complex Calculator Demo:")
     calc = ComplexCalculator()
-    print(calc.complex_add(1 + 1j, 2 + 2j, 3 + 3j))  # 출력: (6+6j)
-    print(calc.complex_subtract(10 + 10j, 2 + 5j, 3 - 5j))  # 출력: (5+10j)
-    print(calc.complex_multiply(2 + 1j, 3, 4j))  # 출력: (-12+24j)
-    print(calc.complex_divide(100 - 10j, 2))  # 출력: (50-5j)
-    print(calc.complex_magnitude(1 + 1j, precision=4))  # 출력: 1.4142
-    print(calc.complex_argument(1 + 1j, angle_unit='degree'))  # 출력:45.0
-    print(calc.complex_argument(1 + 1j, precision=3))  # 출력:0.785
+    print(calc.complex_add(1+1j, 2+2j, 3+3j))  # 출력: (6+6j)
+    print(calc.complex_subtract(10+10j, 2+5j, 3-5j))  # 출력: (5+10j)
+    print(calc.complex_multiply(2+1j, 3, 4j))  # 출력: (-12+24j)
+    print(calc.complex_divide(100-10j, 2))  # 출력: (50-5j)
+    print(calc.complex_magnitude(1+1j, precision=4))  # 출력: 1.4142
+    print(calc.complex_argument(1+1j, angle_unit='degree'))  # 출력:45.0
+    print(calc.complex_argument(1+1j, precision=3))  # 출력:0.785
     # 출력: [1.414, 0.785]
     print(calc.cartesian_to_polar(1+1j, coordinate='cartesian', precision=3))
     print(calc.cartesian_to_polar(1, 0, coordinate='polar'))  # 출력:0.785

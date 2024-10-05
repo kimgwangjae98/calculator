@@ -39,105 +39,224 @@ class EngineeringCalculator(Calculator):
         pass
 
     def square_root(self, x: float, **kwargs: dict[str, any]) -> any:
-        '''
+        """
         제곱근. x=16 이면 결과로 4를 반환합니다.
-        square_root(16) = 4
-        '''
 
-        r, f = utils.get_kwarg(**kwargs)
+        Args:
+            x (int): 제곱근을 구할 숫자를 받습니다.
+            **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+                - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+                - return_float (bool): 결과를 실수형으로 반환할지 여부를 지정합니다. (기본값: False)
 
-        result = math.sqrt(x)
-        result = utils.round_result(value=result, precision=r)
-        result = utils.fl(result=result, f=f)
+        Returns:
+            any: 제곱근 결과을 반환합니다.
+
+        Examples:
+            >>> eng_calc = EngineeringCalculator()
+            >>> eng_calc.square_root(16, precision=3)
+            4.000
+        """
+
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
+
+        result = math.sqrt(x)  # 제곱근 연산을 수행
+        result = utils.round_result(
+            value=result, precision=precision)  # 소수점 자릿수 맞춤
+        # 결과를 실수형으로 반환할지 지정
+        result = utils.fl(result=result, return_float=return_float)
 
         return result
 
     def power(self, x: float, y: float, **kwargs: dict[str, any]) -> any:
-        '''
+        """
         거듭제곱. x^y 이며 x=2, y=3 이면 2^3=8을 반환합니다.
-        power(2,3) = 8
-        '''
-        r, f = utils.get_kwarg(**kwargs)
 
-        result = math.pow(x, y)
-        result = utils.round_result(value=result, precision=r)
-        result = utils.fl(result=result, f=f)
+        Args:
+            x (int): 거듭제곱을 구할 숫자를 받습니다.
+            **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+                - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+                - return_float (bool): 결과를 실수형으로 반환할지 여부를 지정합니다. (기본값: False)
+
+        Returns:
+            any: 거듭제곱 결과를 반환합니다.
+
+        Examples:
+            >>> eng_calc = EngineeringCalculator()
+            >>> eng_calc.power(2,3)
+            8
+        """
+
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
+
+        result = math.pow(x, y)  # 거듭제곱 연산을 수행
+        result = utils.round_result(
+            value=result, precision=precision)  # 소수점 자릿수 맞춤
+        # 결과를 실수형으로 반환할지 지정
+        result = utils.fl(result=result, return_float=return_float)
 
         return result
 
     def log(self, x: float, **kwargs: dict[str, any]) -> any:
-        '''
+        """
         로그. 밑이 10인 로그 매서드입니다. x=100 이면 log100=2를 반환합니다.
-        log(100) = 2
-        '''
-        r, f = utils.get_kwarg(**kwargs)
 
-        result = math.log10(x)
-        result = utils.round_result(value=result, precision=r)
-        result = utils.fl(result=result, f=f)
+        Args:
+            x (int): 밑이 10인 로그를 구할 숫자를 받습니다.
+            **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+                - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+                - return_float (bool): 결과를 실수형으로 반환할지 여부를 지정합니다. (기본값: False)
+
+        Returns:
+            any: 밑이 10인 로그 결과 반환합니다.
+
+        Examples:
+            >>> eng_calc = EngineeringCalculator()
+            >>> eng_calc.log(100)
+            2
+        """
+
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
+
+        result = math.log10(x)  # 밑이 10인 로그 연산을 수행
+        result = utils.round_result(
+            value=result, precision=precision)  # 소수점 자릿수 맞춤
+        # 결과를 실수형으로 반환할지 지정
+        result = utils.fl(result=result, return_float=return_float)
 
         return result
 
     def ln(self, x: float, **kwargs: dict[str, any]) -> any:
-        '''
-        자연로그. 밑이 e인 자연로그 매서드입니다. x=e 이면 lne=1을 반환합니다.
-        ln(1) = 0
-        '''
+        """
+        자연로그. 밑이 e인 자연로그 매서드입니다. x=e(자연상수) 이면 lne=1을 반환합니다.
 
-        r, f = utils.get_kwarg(**kwargs)
+        Args:
+            x (int): 자연로그를 구할 숫자를 받습니다.
+            **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+                - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+                - return_float (bool): 결과를 실수형으로 반환할지 여부를 지정합니다. (기본값: False)
 
-        result = math.log(x)
-        result = utils.round_result(value=result, precision=r)
-        result = utils.fl(result=result, f=f)
+        Returns:
+            any: 자연로그 결과를 반환합니다.
+
+        Examples:
+            >>> eng_calc = EngineeringCalculator()
+            >>> eng_calc.ln(1)
+            0
+        """
+
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
+
+        result = math.log(x)  # 자연로그 연산을 수행
+        result = utils.round_result(
+            value=result, precision=precision)  # 소수점 자릿수 맞춤
+        # 결과를 실수형으로 반환할지 지정
+        result = utils.fl(result=result, return_float=return_float)
 
         return result
 
     def sin(self, x: float, **kwargs: dict[str, any]) -> any:
-        '''
+        """
         사인. 각도 혹은 라디안 x를 입력하고 키워드로 angle_unit = 'degree' 가 입력되면 라디안 값으로 변환하여 sin값을 계산해 결과값을 반환합니다.
-        sin(30, angle_unit = 'degree') = 0.5 을 반환합니다.
-        '''
-        r, f = utils.get_kwarg(**kwargs)
 
-        x = utils.convert_to_radians(x=x, **kwargs)
+        Args:
+            x (int): 사인값을 구할 숫자를 받습니다.
+            **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+                - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+                - return_float (bool): 결과를 실수형으로 반환할지 여부를 지정합니다. (기본값: False)
+                - angle_unit (str): 'degree' 이면 출력이 극좌표형태일 때 라디안에서 각도로 변환합니다. (예 : angle_unit = 'degree')
 
-        result = math.sin(x)
-        result = utils.round_result(value=result, precision=r)
-        result = utils.fl(result=result, f=f)
+        Returns:
+            any: 사인 결과를 반환합니다.
+
+        Examples:
+            >>> eng_calc = EngineeringCalculator()
+            >>> eng_calc.sin(30, angle_unit='degree', precision=4)
+            0.5000
+        """
+
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
+
+        x = utils.convert_to_radians(x=x, **kwargs)  # 각도를 라디안으로 변환
+
+        result = math.sin(x)  # 사인 연산을 수행
+        result = utils.round_result(
+            value=result, precision=precision)  # 소수점 자릿수 맞춤
+        # 결과를 실수형으로 반환할지 지정
+        result = utils.fl(result=result, return_float=return_float)
 
         return result
 
     def cos(self, x: float, **kwargs: dict[str, any]) -> any:
-        '''
+        """
         코사인. 각도 혹은 라디안 x를 입력하고 키워드로 angle_unit = 'degree' 가 입력되면 라디안 값으로 변환하여 cos값을 계산해 결과값을 반환합니다.
-        cos(60, angle_unit = 'degree') = 0.5 을 반환합니다.
 
-        '''
-        r, f = utils.get_kwarg(**kwargs)
-        x = utils.convert_to_radians(x=x, **kwargs)
+        Args:
+            x (int): 코사인 값을 구할 숫자를 받습니다.
+            **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+                - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+                - return_float (bool): 결과를 실수형으로 반환할지 여부를 지정합니다. (기본값: False)
+                - angle_unit (str): 'degree' 이면 출력이 극좌표형태일 때 라디안에서 각도로 변환합니다. (예 : angle_unit = 'degree')
 
-        result = math.cos(x)
-        result = utils.round_result(value=result, precision=r)
-        result = utils.fl(result=result, f=f)
+        Returns:
+            any: 코사인 결과를 반환합니다.
+
+        Examples:
+            >>> eng_calc = EngineeringCalculator()
+            >>> eng_calc.cos(60, angle_unit='degree')
+            0.5
+        """
+
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
+        x = utils.convert_to_radians(x=x, **kwargs)  # 각도를 라디안으로 변환
+
+        result = math.cos(x)  # 코사인 연산을 수행
+        result = utils.round_result(
+            value=result, precision=precision)  # 소수점 자릿수 맞춤
+        # 결과를 실수형으로 반환할지 지정
+        result = utils.fl(result=result, return_float=return_float)
 
         return result
 
     def tan(self, x: float, **kwargs: dict[str, any]) -> any:
-        '''
+        """
         탄젠트. 각도 혹은 라디안 x를 입력하고 키워드로 angle_unit = 'degree' 가 입력되면 라디안 값으로 변환하여 tan값을 계산해 결과값을 반환합니다.
-        tan(0, angle_unit = 'degree') = 0
-        '''
-        r, f = utils.get_kwarg(**kwargs)
-        x = utils.convert_to_radians(x=x, **kwargs)
 
-        result = math.tan(x)
-        result = utils.round_result(value=result, precision=r)
-        result = utils.fl(result=result, f=f)
+        Args:
+            x (int): 탄젠트 값을 구할 숫자를 받습니다.
+            **kwargs (dict[str, any]): 연산 조건을 지정하는 키워드 인자를 받습니다.
+                - precision (int): 소수점 자릿수를 지정합니다. (기본값: 0)
+                - return_float (bool): 결과를 실수형으로 반환할지 여부를 지정합니다. (기본값: False)
+                - angle_unit (str): 'degree' 이면 출력이 극좌표형태일 때 라디안에서 각도로 변환합니다. (예 : angle_unit = 'degree')
+
+        Returns:
+            any: 탄젠트 결과를 반환합니다.
+
+        Examples:
+            >>> eng_calc = EngineeringCalculator()
+            >>> eng_calc.tan(0, angle_unit = 'degree')
+            0
+        """
+
+        # precision, return_float 키워드 인자를 받음
+        precision, return_float = utils.get_kwarg(**kwargs)
+        x = utils.convert_to_radians(x=x, **kwargs)  # 각도를 라디안으로 변환
+
+        result = math.tan(x)  # 탄젠트 연산을 수행
+        result = utils.round_result(
+            value=result, precision=precision)  # 소수점 자릿수 맞춤
+        # 결과를 실수형으로 반환할지 지정
+        result = utils.fl(result=result, return_float=return_float)
 
         return result
 
 
-__all__ = ['EngineeringCalculator']
+__all__ = ['EngineeringCalculator']  # 외부에서 import * 를 사용할 때 노출될 이름들을 명시
 
 if __name__ == '__main__':
     # 클래스 테스트용 코드
